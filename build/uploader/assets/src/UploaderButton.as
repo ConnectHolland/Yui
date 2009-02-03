@@ -224,6 +224,45 @@
 
 			return fileDataList;
 		}
+		
+		/**
+		 * setText
+		 *
+		 * Sets the text of the button
+		 *
+		 * @since Tue Feb 03 2009
+		 * @access public
+		 * @return void
+		 **/
+		public function setText(text:String) {
+			buttonSprite.text = text;
+		}
+		
+		/**
+		 * setTextStyle
+		 *
+		 * Sets the text style of the button
+		 *
+		 * @since Tue Feb 03 2009
+		 * @access public
+		 * @return void
+		 **/
+		public function setTextStyle(textstyle:String) {
+			buttonSprite.textStyle = textstyle;
+		}
+		
+		/**
+		 * toggleButtonImage
+		 *
+		 * Toggles the visibility of the button image on/off
+		 *
+		 * @since Tue Feb 03 2009
+		 * @access public
+		 * @return void
+		 **/
+		public function toggleButtonImage() {
+			buttonSprite.toggleImage();
+		}
 
 		public function enable () : void {
 			if (renderType == "button") {
@@ -796,6 +835,10 @@
 			// setFileFilters(fileFilters:Array)
 			// Sets file filters for file selection.
 			ExternalInterface.addCallback("setFileFilters", this.setFileFilters);
+			
+			ExternalInterface.addCallback("setText", this.setText);
+			ExternalInterface.addCallback("setTextStyle", this.setTextStyle);
+			ExternalInterface.addCallback("toggleButtonImage", this.toggleButtonImage);
 			
 			// enable()
 			// Enables Uploader UI

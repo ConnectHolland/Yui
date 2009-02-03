@@ -1044,6 +1044,48 @@ YAHOO.extend(YAHOO.widget.Uploader, YAHOO.widget.FlashAdapter,
     {
        this._swf.setFileFilters(fileFilters);
     },
+	
+	/**
+	 * setText
+	 *
+	 * Sets the text of the uploader button
+	 *
+	 * @since Tue Feb 03 2009
+	 * @access public
+	 * @param string text
+	 * @return void
+	 **/
+	setText: function(text) {
+		this._swf.setText(text);
+	},
+	
+	/**
+	 * setTextStyle
+	 *
+	 * Sets the text style of the uploader button
+	 *
+	 * @since Tue Feb 03 2009
+	 * @access public
+	 * @param string textstyle
+	 * @return void
+	 **/
+	setTextStyle: function(textstyle) {
+		this._swf.setTextStyle(textstyle);
+	},
+	
+	/**
+	 * toggleButtonImage
+	 *
+	 * Toggles the image of the button on/off
+	 *
+	 * @since Tue Feb 03 2009
+	 * @access public
+	 * @param string text
+	 * @return void
+	 **/
+	toggleButtonImage: function() {
+		this._swf.toggleButtonImage();
+	},
 
 	/**
 	 * Enables the mouse events on the Uploader.
