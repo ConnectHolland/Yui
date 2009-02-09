@@ -252,16 +252,29 @@
 		}
 		
 		/**
-		 * toggleButtonImage
+		 * showButtonImage
 		 *
-		 * Toggles the visibility of the button image on/off
+		 * Toggles the visibility of the button image on
 		 *
 		 * @since Tue Feb 03 2009
 		 * @access public
 		 * @return void
 		 **/
-		public function toggleButtonImage() {
-			buttonSprite.toggleImage();
+		public function showButtonImage() {
+			buttonSprite.showImage();
+		}
+		
+		/**
+		 * hideButtonImage
+		 *
+		 * Toggles the visibility of the button image off
+		 *
+		 * @since Tue Feb 03 2009
+		 * @access public
+		 * @return void
+		 **/
+		public function hideButtonImage() {
+			buttonSprite.hideImage();
 		}
 
 		public function enable () : void {
@@ -836,9 +849,11 @@
 			// Sets file filters for file selection.
 			ExternalInterface.addCallback("setFileFilters", this.setFileFilters);
 			
+			// UploadButton callbacks (Thu Feb 03 2009)
 			ExternalInterface.addCallback("setText", this.setText);
 			ExternalInterface.addCallback("setTextStyle", this.setTextStyle);
-			ExternalInterface.addCallback("toggleButtonImage", this.toggleButtonImage);
+			ExternalInterface.addCallback("showButtonImage", this.showButtonImage);
+			ExternalInterface.addCallback("hideButtonImage", this.hideButtonImage);
 			
 			// enable()
 			// Enables Uploader UI

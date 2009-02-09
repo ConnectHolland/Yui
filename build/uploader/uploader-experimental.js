@@ -1074,17 +1074,31 @@ YAHOO.extend(YAHOO.widget.Uploader, YAHOO.widget.FlashAdapter,
 	},
 	
 	/**
-	 * toggleButtonImage
+	 * showButtonImage
 	 *
-	 * Toggles the image of the button on/off
+	 * Toggles the image of the button on
 	 *
-	 * @since Tue Feb 03 2009
+	 * @since Mon Feb 09 2009
 	 * @access public
 	 * @param string text
 	 * @return void
 	 **/
-	toggleButtonImage: function() {
-		this._swf.toggleButtonImage();
+	showButtonImage: function() {
+		this._swf.showButtonImage();
+	},
+	
+	/**
+	 * hideButtonImage
+	 *
+	 * Toggles the image of the button off
+	 *
+	 * @since Mon Feb 09 2009
+	 * @access public
+	 * @param string text
+	 * @return void
+	 **/
+	hideButtonImage: function() {
+		this._swf.hideButtonImage();
 	},
 
 	/**
