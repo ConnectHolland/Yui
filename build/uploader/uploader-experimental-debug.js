@@ -347,7 +347,7 @@ var SWFObject = deconcept.SWFObject;
  * @class FlashAdapter
  * @uses YAHOO.util.AttributeProvider
  */
-YAHOO.widget.FlashAdapter = function(swfURL, containerID, attributes, buttonSkin)
+YAHOO.widget.FlashAdapter = function(swfURL, containerID, attributes, buttonSkin, buttonText, buttonTextStyle)
 {
 	// set up the initial events and attributes stuff
 	this._queue = this._queue || [];
@@ -370,7 +370,7 @@ YAHOO.widget.FlashAdapter = function(swfURL, containerID, attributes, buttonSkin
 	
 	//embed the SWF file in the page
 	this._embedSWF(this._swfURL, this._containerID, attributes.id, attributes.version,
-		attributes.backgroundColor, attributes.expressInstall, attributes.wmode, buttonSkin);
+		attributes.backgroundColor, attributes.expressInstall, attributes.wmode, buttonSkin, buttonText, buttonTextStyle);
 	
 	/**
 	 * Fires when the SWF is initialized and communication is possible.
@@ -473,7 +473,6 @@ YAHOO.extend(YAHOO.widget.FlashAdapter, YAHOO.util.AttributeProvider,
 			}
 		}
 		
-		YAHOO.log("FlashAdapter instance destroyed: " + instanceName);
 	},
 
 	/**
@@ -482,7 +481,7 @@ YAHOO.extend(YAHOO.widget.FlashAdapter, YAHOO.util.AttributeProvider,
 	 * @method _embedSWF
 	 * @private
 	 */
-	_embedSWF: function(swfURL, containerID, swfID, version, backgroundColor, expressInstall, wmode, buttonSkin)
+	_embedSWF: function(swfURL, containerID, swfID, version, backgroundColor, expressInstall, wmode, buttonSkin, buttonText, buttonTextStyle)
 	{
 		//standard SWFObject embed
 		var swfObj = new deconcept.SWFObject(swfURL, swfID, "100%", "100%", version, backgroundColor);
@@ -511,7 +510,13 @@ YAHOO.extend(YAHOO.widget.FlashAdapter, YAHOO.util.AttributeProvider,
 		// set the name of the function to call when the swf has an event
 		swfObj.addVariable("eventHandler", "YAHOO.widget.FlashAdapter.eventHandler");
 		if (buttonSkin) {
-		swfObj.addVariable("buttonSkin", buttonSkin);
+			swfObj.addVariable("buttonSkin", buttonSkin);
+		}
+		if (buttonText) {
+			swfObj.addVariable("buttonText", buttonText);
+		}
+		if (buttonTextStyle) {
+			swfObj.addVariable("buttonTextStyle", buttonTextStyle);
 		}
 		var container = YAHOO.util.Dom.get(containerID);
 		var result = swfObj.write(container);
@@ -524,7 +529,6 @@ YAHOO.extend(YAHOO.widget.FlashAdapter, YAHOO.util.AttributeProvider,
 		}
 		else
 		{
-			YAHOO.log("Unable to load SWF " + swfURL);
 		}
 	},
 
@@ -543,7 +547,6 @@ YAHOO.extend(YAHOO.widget.FlashAdapter, YAHOO.util.AttributeProvider,
    				this._loadHandler();
 				return;
 			case "log":
-				YAHOO.log(event.message, event.category, this.toString());
 				return;
 		}
 		
@@ -781,7 +784,7 @@ YAHOO.widget.FlashAdapter.removeProxyFunction = function(funcName)
  * If the parameter is not supplied, the uploader is rendered transparent,
  * and it's the developer's responsibility to create a visible UI below it.
   */
-YAHOO.widget.Uploader = function(containerId, buttonSkin)
+YAHOO.widget.Uploader = function(containerId, buttonSkin, buttonText, buttonTextStyle)
 {
 	var newWMode = "window";
 
@@ -789,7 +792,7 @@ YAHOO.widget.Uploader = function(containerId, buttonSkin)
 		newWMode = "transparent";
 	}
 	
- 	YAHOO.widget.Uploader.superclass.constructor.call(this, YAHOO.widget.Uploader.SWFURL, containerId, {wmode:newWMode}, buttonSkin);
+ 	YAHOO.widget.Uploader.superclass.constructor.call(this, YAHOO.widget.Uploader.SWFURL, containerId, {wmode:newWMode}, buttonSkin, buttonText, buttonTextStyle);
 
 	this._swf.tabIndex="1";
 
@@ -1041,6 +1044,62 @@ YAHOO.extend(YAHOO.widget.Uploader, YAHOO.widget.FlashAdapter,
     {
        this._swf.setFileFilters(fileFilters);
     },
+	
+	/**
+	 * setText
+	 *
+	 * Sets the text of the uploader button
+	 *
+	 * @since Tue Feb 03 2009
+	 * @access public
+	 * @param string text
+	 * @return void
+	 **/
+	setText: function(text) {
+		this._swf.setText(text);
+	},
+	
+	/**
+	 * setTextStyle
+	 *
+	 * Sets the text style of the uploader button
+	 *
+	 * @since Tue Feb 03 2009
+	 * @access public
+	 * @param string textstyle
+	 * @return void
+	 **/
+	setTextStyle: function(textstyle) {
+		this._swf.setTextStyle(textstyle);
+	},
+	
+	/**
+	 * showButtonImage
+	 *
+	 * Toggles the image of the button on
+	 *
+	 * @since Mon Feb 09 2009
+	 * @access public
+	 * @param string text
+	 * @return void
+	 **/
+	showButtonImage: function() {
+		this._swf.showButtonImage();
+	},
+	
+	/**
+	 * hideButtonImage
+	 *
+	 * Toggles the image of the button off
+	 *
+	 * @since Mon Feb 09 2009
+	 * @access public
+	 * @param string text
+	 * @return void
+	 **/
+	hideButtonImage: function() {
+		this._swf.hideButtonImage();
+	},
 
 	/**
 	 * Enables the mouse events on the Uploader.
