@@ -109,6 +109,8 @@ deconcept.SWFObject.prototype =
 			if (this.getAttribute("doExpressInstall")) {
 				this.addVariable("MMplayerType", "PlugIn");
 				this.setAttribute('swf', this.xiSWFPath);
+				this.setAttribute("width", 215);
+				this.setAttribute("height", 138);
 			}
 			swfNode = '<embed type="application/x-shockwave-flash" src="'+ this.getAttribute('swf') +'" width="'+ this.getAttribute('width') +'" height="'+ this.getAttribute('height') +'" style="'+ this.getAttribute('style') +'"';
 			swfNode += ' id="'+ this.getAttribute('id') +'" name="'+ this.getAttribute('id') +'" ';
@@ -792,8 +794,12 @@ YAHOO.widget.Uploader = function(containerId, buttonSkin, buttonText, buttonText
 		newWMode = "transparent";
 	}
 	
- 	YAHOO.widget.Uploader.superclass.constructor.call(this, YAHOO.widget.Uploader.SWFURL, containerId, {wmode:newWMode}, buttonSkin, buttonText, buttonTextStyle);
+	YAHOO.widget.Uploader.superclass.constructor.call(this, YAHOO.widget.Uploader.SWFURL, containerId, {wmode: newWMode, version: "10.0.2", expressInstall: YAHOO.widget.Uploader.SWFINSTALLURL}, buttonSkin, buttonText, buttonTextStyle);
 
+	if (this._swf.src.indexOf("expressinstall.swf", 0) != -1) {
+		containerId.addClassName("expressinstall");
+	}
+	
 	this._swf.tabIndex="1";
 
 	/**
@@ -923,6 +929,7 @@ YAHOO.widget.Uploader = function(containerId, buttonSkin, buttonText, buttonText
  * @default "assets/uploader.swf"
  */
 YAHOO.widget.Uploader.SWFURL = "assets/uploader.swf";
+YAHOO.widget.Uploader.SWFINSTALLURL = "assets/expressinstall.swf";
 
 YAHOO.extend(YAHOO.widget.Uploader, YAHOO.widget.FlashAdapter,
 {	
