@@ -796,8 +796,18 @@ YAHOO.widget.Uploader = function(containerId, buttonSkin, buttonText, buttonText
 	
 	YAHOO.widget.Uploader.superclass.constructor.call(this, YAHOO.widget.Uploader.SWFURL, containerId, {wmode: newWMode, version: "10.0.2", expressInstall: YAHOO.widget.Uploader.SWFINSTALLURL}, buttonSkin, buttonText, buttonTextStyle);
 
-	if (this._swf.src.indexOf("expressinstall.swf", 0) != -1) {
+	if (this._swf["src"] != undefined && this._swf.src.indexOf("expressinstall.swf", 0) != -1) {
 		containerId.addClassName("expressinstall");
+	}
+	else {
+		var params = this._swf.getElementsByTagName("param");
+		for (var i = 0; i < params.length; i++) {
+			var attributeName = params[i].getAttribute("name");
+			var attributeValue = params[i].getAttribute("value");
+			if (attributeName == "movie" && attributeValue.indexOf("expressinstall.swf", 0) != -1) {
+				containerId.addClassName("expressinstall");
+			}
+		}
 	}
 	
 	this._swf.tabIndex="1";
