@@ -804,8 +804,10 @@ YAHOO.widget.Uploader = function(containerId, buttonSkin, buttonText, buttonText
 		for (var i = 0; i < params.length; i++) {
 			var attributeName = params[i].getAttribute("name");
 			var attributeValue = params[i].getAttribute("value");
-			if (attributeName == "movie" && attributeValue.indexOf("expressinstall.swf", 0) != -1) {
-				containerId.addClassName("expressinstall");
+			if (attributeName == "movie") {
+				if (attributeValue.indexOf("expressinstall.swf", 0) != -1) {
+					containerId.addClassName("expressinstall");
+				}
 			}
 		}
 	}
