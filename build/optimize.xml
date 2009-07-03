@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<optimizerconfig>
+	<uploaderjs>
+		<type>js</type>
+		<sitedirectory>../../</sitedirectory>
+		<files>
+			<file>../../lib/yui/yahoo-dom-event/yahoo-dom-event.js</file>
+			<file>../../lib/yui/element/element-beta-min.js</file>
+			<file>../../lib/yui/uploader/uploader-experimental-min.js</file>
+		</files>
+		<output>optimized/yuiuploader.js</output>
+		<languages>
+			<language>nl_NL</language>
+		</languages>
+		<dontminify>0</dontminify>
+	</uploaderjs>
+</optimizerconfig>
