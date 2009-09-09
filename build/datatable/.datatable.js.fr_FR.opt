@@ -1735,14 +1735,15 @@ RS.prototype = {
      * @method _setRecord
      * @param oData {Object} An object literal of data.
      * @param index {Number} (optional) Position index.
+	 * @param id {String} (optional) The id of the record (to make sure it doesn't change)
      * @return {YAHOO.widget.Record} A Record instance.
      * @private
      */
-    _setRecord : function(oData, index) {
+    _setRecord : function(oData, index, id) {
         if (!lang.isNumber(index) || index < 0) {
             index = this._records.length;
         }
-        return (this._records[index] = new widget.Record(oData));
+        return (this._records[index] = new widget.Record(oData, id));
         /*
         if(lang.isNumber(index) && (index > -1)) {
             this._records[index] = oRecord;
@@ -1971,11 +1972,12 @@ RS.prototype = {
      * @method setRecord
      * @param oData {Object} An object literal of data.
      * @param index {Number} (optional) Position index.
+	 * @param id {String} (optional) The id of the record (to make sure it doesn't change)
      * @return {YAHOO.widget.Record} A Record instance.
      */
-    setRecord : function(oData, index) {
+    setRecord : function(oData, index, id) {
         if(lang.isObject(oData)) {
-            var oRecord = this._setRecord(oData, index);
+            var oRecord = this._setRecord(oData, index, id);
             this.fireEvent("recordSetEvent",{record:oRecord,data:oData});
             return oRecord;
         }
@@ -2299,9 +2301,14 @@ lang.augmentProto(RS, util.EventProvider);
  * @constructor
  * @param oConfigs {Object} (optional) Object literal of key/value pairs.
  */
-YAHOO.widget.Record = function(oLiteral) {
+YAHOO.widget.Record = function(oLiteral, id) {
     this._nCount = widget.Record._nCount;
-    this._sId = "yui-rec" + this._nCount;
+	if (id) {
+		this._sId = id;
+	}
+	else {
+    	this._sId = "yui-rec" + this._nCount;
+	}
     widget.Record._nCount++;
     this._oData = {};
     if(lang.isObject(oLiteral)) {
@@ -8981,7 +8988,7 @@ updateRow : function(row, oData) {
             
         
         if(oldRecord) {
-            var updatedRecord = this._oRecordSet.setRecord(oData, index),
+            var updatedRecord = this._oRecordSet.setRecord(oData, index, oldRecord.getId() ),
                 elRow = this.getTrEl(oldRecord),
                 // Copy data from the Record for the event that gets fired later
                 oldData = oldRecord ? oldRecord.getData() : null;
